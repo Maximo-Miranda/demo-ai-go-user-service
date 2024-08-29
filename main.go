@@ -24,6 +24,10 @@ func main() {
 	e := echo.New()
 	e.Use(echo_middlewares.Logger())
 
+	e.GET("/", func(c echo.Context) error {
+		return c.String(200, "User service is running!")
+	})
+
 	e.POST("/register", handlers.Register)
 	e.POST("/login", handlers.Login)
 	e.GET("/users", handlers.ListUsers)
