@@ -13,10 +13,13 @@ type Config struct {
 }
 
 func (c *Config) LoadConfig() {
-	// Cargar archivo .env si existe
-	err := godotenv.Load()
-	if err != nil {
-		log.Println("No se encontró el archivo .env")
+
+	if os.Getenv("APP_ENV") != "production" {
+		// Cargar archivo .env si existe
+		err := godotenv.Load()
+		if err != nil {
+			log.Println("No se encontró el archivo .env")
+		}
 	}
 
 	// Leer variables de entorno
