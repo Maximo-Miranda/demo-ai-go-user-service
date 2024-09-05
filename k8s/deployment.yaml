@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: user-service
-        image: mmrianda/user-service:tagname
+        image: mmrianda/user-service:v1
         resources:
           limits:
             cpu: "500m"
