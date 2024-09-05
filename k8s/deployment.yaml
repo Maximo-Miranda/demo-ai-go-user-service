@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        app: user-service
+    spec:
+      containers:
+      - name: user-service
+        image: mmrianda/user-service:tagname
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "250m"
+            memory: "256Mi"
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_CONNECTION_STRING
+          value: postgres://postgres:8snnc9S6xo3fHKMU9Zx@67.205.184.248:5432/user_db?sslmode=disable
+        - name: APP_ENV
+          value: "production"
