@@ -1,12 +1,13 @@
 package main
 
 import (
+	"fmt"
 	"time"
 	"user-service/config"
-	"user-service/db"
 	"user-service/handlers"
 	"user-service/middleware"
 
+	"github.com/google/uuid"
 	"github.com/labstack/echo/v4"
 	echo_middlewares "github.com/labstack/echo/v4/middleware"
 )
@@ -22,15 +23,18 @@ func main() {
 	}
 
 	// Conexión a la base de datos
-	db.ConnectDatabase(&conf)
+	//db.ConnectDatabase(&conf)
 
 	// Configuración del servidor Echo
 	e := echo.New()
 	e.Use(echo_middlewares.Logger())
 
+	podName := fmt.Sprintf("user-service-%s", uuid.New().String())
+	messageResponse := fmt.Sprintf("User service is running! v1.0.1 - %s", podName)
+
 	// Ruta de prueba para verificar que el servicio está en funcionamiento
 	e.GET("/", func(c echo.Context) error {
-		return c.String(200, "User service is running!")
+		return c.String(200, messageResponse)
 	})
 
 	// Rutas para las operaciones de usuarios
